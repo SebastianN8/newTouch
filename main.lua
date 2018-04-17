@@ -38,14 +38,20 @@ myNinja.id = 'The Ninja'
 
 function myNinja:touch(event)
 	if (event.phase == 'began') then
-		print('The event bagan on: '.. self.id)
+		print('The event began on: '.. self.id)
 
 		-- Set Focus
-		display.getCurrentPhase():setFocus(self)
+		display.getCurrentStage():setFocus(self)
 		self.isFocus = true
-
-	elseif (event.phase == 'ended') then
+	elseif (event.phase == 'moved') then
+		myNinja.x = event.x
+		myNinja.y = event.y
+	elseif (event.phase == 'ended' or event.phase == 'cancelled') then
 		print('The event ended on '.. self.id)
+
+		-- Reset focus
+		display.getCurrentStage():setFocus(nil)
+		self.isFocus = nil
 	end
 	return true
 end
