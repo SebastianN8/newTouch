@@ -21,6 +21,7 @@ myPizza.id = 'The pizza'
 local function myPizzaThere(event)
 	if (event.phase == 'began') then
 		print('The event began on '.. event.target.id)
+		
 	elseif (event.phase == 'ended') then
 		print('The event ended on '.. event.target.id)
 	end
@@ -38,20 +39,24 @@ myNinja.id = 'The Ninja'
 
 function myNinja:touch(event)
 	if (event.phase == 'began') then
-		print('The event began on: '.. self.id)
+		print('The event began on '.. self.id)
 
 		-- Set Focus
 		display.getCurrentStage():setFocus(self)
 		self.isFocus = true
+
 	elseif (event.phase == 'moved') then
+		-- Ninja moves
 		myNinja.x = event.x
 		myNinja.y = event.y
+		print(myNinja.x.. ', '..myNinja.y)
+
+
 	elseif (event.phase == 'ended' or event.phase == 'cancelled') then
 		print('The event ended on '.. self.id)
 
-		-- Reset focus
-		display.getCurrentStage():setFocus(nil)
-		self.isFocus = nil
+			display.getCurrentStage():setFocus(nil)
+			self.isFocus = nil
 	end
 	return true
 end
